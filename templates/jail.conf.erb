@@ -1,0 +1,27 @@
+##
+# THIS FILE IS MANAGED BY PUPPET
+# DO NOT MODIFY THIS LOCALLY
+
+<%= @name %> {
+  path = <%= @jail_location %>;
+  mount.devfs = <%= @mount_devfs %>;
+  exec.start = "/bin/sh /etc/rc";
+  exec.stop = "/bin/sh /etc/rc.shutdown";
+  exec.prestart = "/sbin/mount_nullfs -o ro <%= scope.lookupvar('jail::basejail_location') %> <%= @jail_location %>/basejail";
+  exec.poststop = "/sbin/umount <%= @jail_location %>/basejail";
+
+  allow.set_hostname = <%= @allow_set_hostname %>;
+  allow.sysvipc = <%= @allow_sysvipc %>;
+  allow.raw_sockets = <%= @allow_raw_sockets %>;
+  allow.chflags = <%= @allow_chflags %>;
+  allow.mount = <%= @allow_mount %>;
+  allow.mount.devfs = <%= @allow_mount_devfs %>;
+  allow.mount.nullfs = <%= @allow_mount_nullfs %>;
+  allow.mount.procfs = <%= @allow_mount_procfs %>;
+  allow.mount.tmpfs = <%= @allow_mount_tmpfs %>;
+  allow.mount.zfs = <%= @allow_mount_zfs %>;
+  allow.quotas = <%= @allow_quotas %>;
+  allow.socket_af = <%= @allow_socket_af %>;
+
+
+}
