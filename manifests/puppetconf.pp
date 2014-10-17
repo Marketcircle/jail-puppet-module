@@ -33,7 +33,7 @@ define jail::puppet(
 ){
 $config_file = "puppet.conf"
 
-}
+
   file { $config_file:
 	ensure  => present,
   	path    => $manage_file_path,
@@ -42,5 +42,5 @@ $config_file = "puppet.conf"
     mode    => $jail::config_file_mode,
     content => template('jail/puppet.conf.erb'),
 }
-
+}
 
