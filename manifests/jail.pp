@@ -57,7 +57,7 @@ define jail::jail(
   $service_name = "jail-${name}"
   $config_file = "jail.conf-${name}"
 
-  $manage_file_path = "${jail::config_dir}${name}.conf"
+  $manage_file_path = "${jail::config_dir}/${name}.conf"
 
   exec {"create-${name}-jail":
     command => "${jail::create_jail_script} -b ${jail::basejail_location} -l ${jail_location}",
