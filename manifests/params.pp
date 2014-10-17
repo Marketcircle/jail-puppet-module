@@ -1,7 +1,7 @@
 
 class jail::params {
 
-  $config_dir        = '/etc/jail.d'
+  $config_dir        = '/etc/jail.d/'
   $config_file_owner = 'root'
   $config_file_group = 'wheel'
   $config_file_mode  = '0444'
