@@ -64,8 +64,9 @@ fi
 
 mkdir -p $LOCATION
 MK_FOLDERS="usr"
-SYMLINK_FOLDERS="bin boot lib libexec rescue sbin sys usr/bin usr/include usr/lib usr/lib32 usr/libdata usr/libexec usr/ports usr/sbin usr/share usr/src"
 COPY_FOLDERS="etc root mnt tmp var usr/local usr/games usr/obj usr/tests"
+SYMLINK_FOLDERS="bin boot lib libexec rescue sbin sys usr/bin usr/include usr/lib usr/lib32 usr/libdata usr/libexec usr/ports usr/sbin usr/share usr/src"
+
 
 mkdir -p "${LOCATION}/basejail"
 
@@ -74,7 +75,7 @@ for folder in $MK_FOLDERS; do
 done
 
 for folder in $COPY_FOLDERS; do
-  cp -r "${BASEJAIL}/${folder}" "${LOCATION}/${folder}"
+  ditto -Pr "${BASEJAIL}/${folder}" "${LOCATION}/${folder}"
 done
 
 for folder in $SYMLINK_FOLDERS; do

@@ -20,4 +20,11 @@ class jail::params {
   $basejail_location = "${jails_location}/basejail"
 
   $scripts_dir = '/usr/local/puppet-jail-scripts'
+  
+  $puppet_download_url="https://downloads.puppetlabs.com/puppet/puppet-3.7.1.tar.gz"
+  $facter_download_url="http://downloads.puppetlabs.com/facter/facter-2.2.0.tar.gz"
+  $hiera_download_url="https://downloads.puppetlabs.com/hiera/hiera-1.3.4.tar.gz"
+  $puppet_components_download_path = '/usr/local/puppet-components'
+  
+  
 }

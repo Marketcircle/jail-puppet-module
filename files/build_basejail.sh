@@ -104,4 +104,10 @@ for f in $INSTALL_FILES; do
     tar xfz "${DOWNLOAD_LOCATION}/$f" -C $BASEJAIL_LOCATION
 done
 
+### Fix the ldconfig
+
+chroot $BASEJAIL_LOCATION $BASEJAIL_LOCATION/etc/rc.d/ldconfig start
+
+### Download and install puppet
+
 

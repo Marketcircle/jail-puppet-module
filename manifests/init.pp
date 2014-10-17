@@ -31,13 +31,13 @@
 #
 # Author Name <author@domain.com>
 #
+
 # === Copyright
 #
 # Copyright 2014 Your name here, unless otherwise noted.
 #
 class jail (
-  $config_dir = $jail::params::config_dir,
-  $scripts_dir = $jail::params::scripts_dir,
+  $config_dir = $jail::params::config_dir,  $scripts_dir = $jail::params::scripts_dir,
   $jails_location = $jail::params::jails_location,
   $basejail_location = $jail::params::basejail_location
 ) inherits jail::params {
@@ -47,9 +47,15 @@ class jail (
     path   => $config_dir,
   }
 
+  file { $freebsd_download_path:
+    ensure => directory,
+  }
+  
+  file { $puppet_components_download_path:
+  	ensure => directory,
 
   file {$scripts_dir:
-    ensure => directory
+    ensure => directory,
   }
 
   $create_jail_script = "${jail::scripts_dir}/build_jail.sh"

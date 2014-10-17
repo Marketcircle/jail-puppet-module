@@ -30,6 +30,10 @@
 # [*allow_quotas*]
 #
 # [*allow_socket_af*]
+#
+# [*ip4_addr*]
+#
+# [*ip6_addr*]
 
 define jail::jail(
   $hostname,
@@ -46,6 +50,8 @@ define jail::jail(
   $allow_mount_zfs = false,
   $allow_quotas = false,
   $allow_socket_af = false,
+  $allow_ip6_addr = '',
+  $allow_ip4_addr = '',
 ){
   $jail_location = "${jail::jails_location}/${name}"
   $service_name = "jail-${name}"
