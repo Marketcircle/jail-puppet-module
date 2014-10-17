@@ -53,7 +53,7 @@ class jail (
   
   file { $puppet_components_download_path:
   	ensure => directory,
-
+  }
   file {$scripts_dir:
     ensure => directory,
   }
