@@ -75,7 +75,7 @@ for folder in $MK_FOLDERS; do
 done
 
 for folder in $COPY_FOLDERS; do
-  cp -Pr "${BASEJAIL}/${folder}" "${LOCATION}/${folder}"
+  cp -rP "${BASEJAIL}/${folder}" "${LOCATION}/${folder}"
 done
 
 for folder in $SYMLINK_FOLDERS; do
