@@ -64,7 +64,7 @@ fi
 
 mkdir -p $LOCATION
 MK_FOLDERS="usr"
-COPY_FOLDERS="etc root mnt tmp var usr/local usr/games usr/obj usr/tests"
+COPY_FOLDERS="dev etc root mnt tmp var usr/local usr/games usr/obj usr/tests"
 SYMLINK_FOLDERS="bin boot lib libexec rescue sbin sys usr/bin usr/include usr/lib usr/lib32 usr/libdata usr/libexec usr/ports usr/sbin usr/share usr/src"
 
 
