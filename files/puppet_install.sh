@@ -6,4 +6,4 @@ portsnap fetch update
 
 echo "Installing puppet"
 cd $PORTS_DIR/sysutils/puppet
-make PREFIX=$BASE_JAIL_INSTALL_LOCATION install
+make DESTDIR=$BASE_JAIL_INSTALL_LOCATION PREFIX=/usr install
