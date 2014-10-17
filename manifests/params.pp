@@ -5,7 +5,7 @@ class jail::params {
   $config_file_owner = 'root'
   $config_file_group = 'wheel'
   $config_file_mode  = '0444'
-
+  $puppetconf_dir    = '/usr/local/jails/basejail/usr/local'
 
   $freebsd_arch      = "amd64" # From facter
   $freebsd_version   = $operatingsystemrelease # By default the
