@@ -10,6 +10,9 @@
   exec.prestart = "/sbin/mount_nullfs -o ro <%= scope.lookupvar('jail::basejail_location') %> <%= @jail_location %>/basejail";
   exec.poststop = "/sbin/umount <%= @jail_location %>/basejail";
   host.hostname = <%= @hostname %>;
+  ip4.addr += <%= @ipv4_address %>;
+  ip6.addr += <%= @ipv6_address %>;
+  interface = <%= @interface %>;
 
   allow.set_hostname = <%= @allow_set_hostname %>;
   allow.sysvipc = <%= @allow_sysvipc %>;

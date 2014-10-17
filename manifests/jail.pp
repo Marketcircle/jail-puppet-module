@@ -7,6 +7,12 @@
 # [*hostname*]
 #   Hostname of the jail
 #
+# [*ipv4_address*]
+#
+# [*ipv6_address*]
+#
+# [*interface*]
+#
 # [*mount_devfs*]
 #
 # [*allow_set_hostname*]
@@ -37,6 +43,9 @@
 
 define jail::jail(
   $hostname,
+  $ipv4_address,
+  $ipv6_address,
+  $interface,
   $mount_devfs = true,
   $allow_set_hostname = false,
   $allow_sysvipc = false,
@@ -50,6 +59,7 @@ define jail::jail(
   $allow_mount_zfs = false,
   $allow_quotas = false,
   $allow_socket_af = false,
+  
 
 ){
   $jail_location = "${jail::jails_location}/${name}"
