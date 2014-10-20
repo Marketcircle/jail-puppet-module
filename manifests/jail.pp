@@ -46,6 +46,8 @@ define jail::jail(
   $ipv4_address,
   $ipv6_address,
   $interface,
+  $vnet_enable = false,
+  $vnet_mode = 'new',
   $mount_devfs = true,
   $allow_set_hostname = false,
   $allow_sysvipc = false,
@@ -72,6 +74,11 @@ define jail::jail(
   exec {"create-${name}-jail":
     command => "${jail::create_jail_script} -b ${jail::basejail_location} -l ${jail_location}",
     creates => $jail_location
+  # Check if the kernel has VIMAGE enabled if the jail has it's own vnet
+  # network stack
+  if $vnet and !$vimage_enabled {
+    fail("vnet for jail ${name} enabled. But no VIMAGE support in Kernel")
+  }
   }
 
   file { $config_file:

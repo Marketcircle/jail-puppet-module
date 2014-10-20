@@ -13,6 +13,11 @@
   ip4.addr += <%= @ipv4_address %>;
   ip6.addr += <%= @ipv6_address %>;
   interface = <%= @interface %>;
+<%# Configure virtual networking %>
+<%- if @vnet_enable -%>
+  vnet = '<%= @vnet_mode %>';
+<%- end %>
+
 
   allow.set_hostname = <%= @allow_set_hostname %>;
   allow.sysvipc = <%= @allow_sysvipc %>;
