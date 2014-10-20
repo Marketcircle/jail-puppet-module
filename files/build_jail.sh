@@ -83,5 +83,6 @@ for folder in $SYMLINK_FOLDERS; do
   ln -s "/basejail/${folder}" "${LOCATION}/${folder}" 
 done
 
-#Copy puppet.conf to 
+# Setup resolv.conf
 
+cp /etc/resolv.conf ${BASEJAIL}/etc/resolv.conf
