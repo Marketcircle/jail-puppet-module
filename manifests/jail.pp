@@ -61,6 +61,7 @@ define jail::jail(
   $allow_socket_af = false,
   
 
+  $install_puppet = true
 ){
   $jail_location = "${jail::jails_location}/${name}"
   $service_name = "jail-${name}"
