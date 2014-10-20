@@ -111,3 +111,4 @@ chroot $BASEJAIL_LOCATION $BASEJAIL_LOCATION/etc/rc.d/ldconfig start
 ### Download and install puppet
 
 
+chroot $BASEJAIL_LOCATION /etc/rc.d/ldconfig start
