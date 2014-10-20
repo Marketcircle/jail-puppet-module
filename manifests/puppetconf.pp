@@ -30,7 +30,7 @@ define jail::puppetconf(
   
 ){
 $config_file = "puppet.conf"
-$manage_file_path = "${jail::config_dir}/${name}.conf"
+$manage_file_path = "/usr/local/etc/puppet.conf"
 
   file { $config_file:
     ensure  => present,
