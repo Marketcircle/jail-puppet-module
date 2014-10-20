@@ -19,13 +19,13 @@
 # [*runinterval*]
 #
 
-define jail::puppet(
+define jail::puppetconf(
   $server,
   $report = false,
   $graph  = false,
-  $logdir = $vardir/log,
-  $rundir = $vardir/run,
-  $ssldir = $confdir/ssl,
+  $logdir = "$vardir/log",
+  $rundir = "$vardir/run",
+  $ssldir = "$confdir/ssl",
   $runinterval = 600,
   
 ){
