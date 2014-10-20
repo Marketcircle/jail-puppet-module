@@ -48,6 +48,8 @@ define jail::jail(
   $interface,
   $vnet_enable = false,
   $vnet_mode = 'new',
+  $vnet_interfaces = undef,
+  $vnet_interfaces_bridge = undef,
   $mount_devfs = true,
   $allow_set_hostname = false,
   $allow_sysvipc = false,
