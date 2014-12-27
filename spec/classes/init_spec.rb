@@ -21,7 +21,5 @@ describe 'jail', :type => :class do
       :owner => 'root',
       :group => 'wheel'
     })}
-
-
   end
 end
