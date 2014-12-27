@@ -58,7 +58,7 @@ define jail::jail(
 
   # Check if the kernel has VIMAGE enabled if the jail has it's own vnet
   # network stack
-  if $vnet and !$vimage_enabled {
+  if $vnet_enable and !$::vimage_enabled {
     fail("vnet for jail ${name} enabled. But no VIMAGE support in Kernel")
   }
   # Run the script to create the jail

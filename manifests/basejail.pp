@@ -1,3 +1,4 @@
+#
 class jail::basejail (
     $basejail_location = $jail::params::basejail_location,
     $freebsd_download_url = $jail::params::freebsd_download_url,
@@ -8,7 +9,7 @@ class jail::basejail (
   $basejail_script = "${jail::scripts_dir}/build_basejail.sh"
   file {$basejail_script:
     ensure => present,
-    mode   => 744,
+    mode   => 'a=r,ug+w',
     owner  => 'root',
     group  => 'wheel',
     source => 'puppet:///modules/jail/build_basejail.sh'
