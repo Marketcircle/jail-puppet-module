@@ -1,5 +1,7 @@
 # jail
 
+[![Build Status](https://travis-ci.org/Marketcircle/jail-puppet-module.svg)](https://travis-ci.org/Marketcircle/jail-puppet-module)
+
 #### Table of Contents
 
 1. [Overview](#overview)
