@@ -8,7 +8,7 @@ Usage: $0 [OPTIONS...]
 This scripts creates a 'basejail' FreeBSD Install
 
 Options:
-  -r FreeBSD release (default: current release)
+  -m FreeBSD release (default: current release)
   -a architecture (default: current architecture)
   -d download location (default: /usr/local/freebsd-dist)
   -b basejail location (default: /usr/local/jails/basejail)
@@ -25,7 +25,7 @@ BASEJAIL_LOCATION=/usr/local/jails/basejail
 REDOWNLOAD=0
 FORCE=0
 
-while getopts "hrfa:d:b:" OPTION
+while getopts "hrfm:a:d:b:" OPTION
 do
     case $OPTION in
         h)
@@ -46,6 +46,9 @@ do
             ;;
         f)
             FORCE=1
+            ;;
+        m)
+            RELEASE=$OPTARG
     esac
 done
 
