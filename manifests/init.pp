@@ -6,6 +6,7 @@ class jail (
   $freebsd_arch = $jail::params::freebsd_arch,
   $freebsd_version = $jail::params::freebsd_version,
   $freebsd_download_url = $jail::params::freebsd_download_url,
+  $freebsd_download_path = $jail::params::freebsd_download_path,
   $scripts_dir = $jail::params::scripts_dir,
   $puppet_download_url = $jail::params::puppet_download_url,
   $facter_download_url = $jail::params::facter_download_url,
@@ -21,7 +22,7 @@ class jail (
     path   => $config_dir,
   }
 
-  file { $jail::params::freebsd_download_path:
+  file { $freebsd_download_path:
     ensure => directory,
   }
 

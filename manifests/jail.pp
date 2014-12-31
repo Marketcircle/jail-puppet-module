@@ -13,6 +13,7 @@
 define jail::jail(
   $ensure = running,
   $hostname = $name,
+  $basejail = undef,
   $vnet_enable = false,
   $vnet_mode = 'new',
   $vnet_interfaces = undef,
@@ -88,4 +89,54 @@ define jail::jail(
     require    => [File["jail.conf-${name}"]],
   }
 
+  file {$jail_location:
+    path   => $jail_location,
+    ensure => directory
+  }
+
+  
+  # Create folders
+  # This cries for the foreach stuff in the future parser
+  if $basejail != undef {
+    $basejail_location = $jail::basejails_location
+    file {"/mnt in ${name}":
+      path    => "${jail_location}/mnt",
+      ensure  => directory,
+      require => File[$jail_location]
+    }
+
+    file {"/usr in ${name}":
+      path    => "${jail_location}/usr",
+      ensure  => directory,
+      require => File[$jail_location]
+    }
+
+    exec {"/bin/cp -R ${basejail_location} ${jail_location}/etc":
+      creates => "${jail_location}/etc"
+    }
+  } else {
+    $freebsd_version = "${::kernelversion}-RELEASE"
+    $architecture = $::hardwareisa
+    $download_path = "${jail::freebsd_download_path}/${architecture}-${freebsd_version}"
+
+    jail::download {$freebsd_version:
+      architecture => $architecture
+    }
+
+    exec {"Extract base.txz in ${name}":
+      path    => "/usr/bin",
+      command => "tar --unlink -xvpJf ${download_path}/base.txz",
+      cwd     => "${jail_location}",
+      creates => "${jail_location}/README",
+      require => Jail::Download[$freebsd_version]
+    }
+
+    exec {"Extract doc.txz in ${name}":
+      path    => "/usr/bin",
+      command => "tar --unlink -xvpJf ${download_path}/doc.txz",
+      cwd     => "${jail_location}",
+      creates => "${jail_location}/usr/share/doc/papers",
+      require => Jail::Download[$freebsd_version]
+    }
+  }
 }
