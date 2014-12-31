@@ -11,6 +11,9 @@ class jail (
   $facter_download_url = $jail::params::facter_download_url,
   $hiera_download_url = $jail::params::hiera_download_url,
   $puppet_components_download_path = $jail::params::puppet_components_download_path,
+  $files_jail_create = $jail::params::files_jail_create,
+  $files_basejail_links = $jail::params::files_basejail_links,
+  $files_basejail_copy = $jail::params::files_basejail_copy,
 ) inherits jail::params {
 
   file { 'jail.d':
@@ -28,15 +31,4 @@ class jail (
   file {$scripts_dir:
     ensure => directory,
   }
-
-  $create_jail_script = "${jail::scripts_dir}/build_jail.sh"
-  file {$create_jail_script:
-    ensure  => present,
-    mode    => '0744',
-    owner   => 'root',
-    group   => 'wheel',
-    source  => 'puppet:///modules/jail/build_jail.sh',
-    require => [File[$scripts_dir]]
-  }
-
 }

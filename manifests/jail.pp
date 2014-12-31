@@ -34,7 +34,11 @@ define jail::jail(
   $allow_mount_zfs = false,
   $allow_quotas = false,
   $allow_socket_af = false,
-  $install_puppet = true
+  $install_puppet = true,
+  $files_jail_create = $jail::files_jail_create,
+  $files_basejail_links = $jail::files_basejail_links,
+  $files_basejail_copy = $jail::files_basejail_copy,
+
 ){
   $jail_location = "${jail::jails_location}/${name}"
   $service_name = "jail-${name}"
