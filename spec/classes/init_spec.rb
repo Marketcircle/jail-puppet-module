@@ -2,8 +2,14 @@ require 'spec_helper'
 describe 'jail', :type => :class do
 
   let :facts do
-   {:osfamily => 'FreeBSD', :hardwaremodel => 'amd64' }
- end
+    {
+      :osfamily => 'FreeBSD',
+      :operatingsystem => 'FreeBSD',
+      :operatingsystemrelease => '10.1-RELEASE',
+      :hardwaremodel => 'amd64',
+    }
+  end
+
 
   context 'with defaults for all parameters' do
     it { should contain_file('jail.d').with(

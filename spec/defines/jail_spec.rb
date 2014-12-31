@@ -4,6 +4,16 @@ describe 'jail::jail', :type => :define do
 
   let(:title) {'testjail'}
 
+  let :facts do
+    {
+      :osfamily => 'FreeBSD',
+      :operatingsystem => 'FreeBSD',
+      :operatingsystemrelease => '10.1-RELEASE',
+      :hardwaremodel => 'amd64',
+    }
+  end
+
+
   let :pre_condition do
     "class {'jail':}"
   end
