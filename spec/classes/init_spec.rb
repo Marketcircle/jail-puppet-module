@@ -18,9 +18,7 @@ describe 'jail', :type => :class do
     it { should contain_file('/usr/local/puppet-components').with(
       :ensure => 'directory'
     )}
-    it { should contain_file('/usr/local/puppet-jail-scripts').with(
-      :ensure => 'directory'
-    )}
+
 
   end
 end
