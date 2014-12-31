@@ -65,14 +65,7 @@ define jail::jail(
   if $vnet_enable and !$::vimage_enabled {
     fail("vnet for jail ${name} enabled. But no VIMAGE support in Kernel")
   }
-  # Run the script to create the jail
-  unless $ensure == absent {
-    exec {"create-${name}-jail":
-      command => "${jail::create_jail_script} -b ${jail::basejail_location} -l ${jail_location}",
-      creates => $jail_location
-    }
-    Exec["create-${name}-jail"] -> Service[$service_name]
-  }
+
 
   # Make sure the config file exists
   file { $config_file:
