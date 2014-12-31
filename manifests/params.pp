@@ -17,7 +17,7 @@ class jail::params {
   $freebsd_download_path = '/usr/local/freebsd-dist'
   
   $jails_baselocation = '/usr/local/jails'
-  $jails_location    = "${jails_location}/jails"
+  $jails_location    = "${jails_baselocation}/jails"
   $basejails_location = "${jails_location}/basejails/"
 
   $puppet_download_url='https://downloads.puppetlabs.com/puppet/puppet-3.7.1.tar.gz'
