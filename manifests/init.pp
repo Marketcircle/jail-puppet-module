@@ -1,6 +1,6 @@
 #
 class jail (
-  $config_dir = $jail::params::config_dir,  $scripts_dir = $jail::params::scripts_dir,
+  $config_dir = $jail::params::config_dir,
   $jails_location = $jail::params::jails_location,
   $basejail_location = $jail::params::basejail_location,
   $freebsd_arch = $jail::params::freebsd_arch,
