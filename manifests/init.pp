@@ -7,7 +7,6 @@ class jail (
   $freebsd_version = $jail::params::freebsd_version,
   $freebsd_download_url = $jail::params::freebsd_download_url,
   $freebsd_download_path = $jail::params::freebsd_download_path,
-  $scripts_dir = $jail::params::scripts_dir,
   $puppet_download_url = $jail::params::puppet_download_url,
   $facter_download_url = $jail::params::facter_download_url,
   $hiera_download_url = $jail::params::hiera_download_url,
