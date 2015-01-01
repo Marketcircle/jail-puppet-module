@@ -12,7 +12,7 @@ class jail::params {
   # By default the jails will be the same freebsd version as the host system
   $freebsd_version   = $::operatingsystemrelease
 
-  $freebsd_download_url  = "ftp://ftp.FreeBSD.org/pub/FreeBSD/releases"
+  $freebsd_download_url  = 'ftp://ftp.FreeBSD.org/pub/FreeBSD/releases'
   $freebsd_components    = ['base','doc','games','lib32','ports'] # Kernel is not required.
   $freebsd_download_path = '/usr/local/freebsd-dist'
   

@@ -90,24 +90,24 @@ define jail::jail(
   }
 
   file {$jail_location:
+    ensure => directory,
     path   => $jail_location,
-    ensure => directory
   }
 
-  
+
   # Create folders
   # This cries for the foreach stuff in the future parser
   if $basejail != undef {
     $basejail_location = $jail::basejails_location
     file {"/mnt in ${name}":
-      path    => "${jail_location}/mnt",
       ensure  => directory,
+      path    => "${jail_location}/mnt",
       require => File[$jail_location]
     }
 
     file {"/usr in ${name}":
-      path    => "${jail_location}/usr",
       ensure  => directory,
+      path    => "${jail_location}/usr",
       require => File[$jail_location]
     }
 
@@ -124,17 +124,17 @@ define jail::jail(
     }
 
     exec {"Extract base.txz in ${name}":
-      path    => "/usr/bin",
+      path    => '/usr/bin',
       command => "tar --unlink -xvpJf ${download_path}/base.txz",
-      cwd     => "${jail_location}",
+      cwd     => $jail_location,
       creates => "${jail_location}/README",
       require => Jail::Download[$freebsd_version]
     }
 
     exec {"Extract doc.txz in ${name}":
-      path    => "/usr/bin",
+      path    => '/usr/bin',
       command => "tar --unlink -xvpJf ${download_path}/doc.txz",
-      cwd     => "${jail_location}",
+      cwd     => $jail_location,
       creates => "${jail_location}/usr/share/doc/papers",
       require => Jail::Download[$freebsd_version]
     }
