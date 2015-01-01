@@ -1,19 +1,120 @@
 # == Define: jail::jail
 #
-# Creates a jail
+# Creates a jail. Similar to ezjail 
 #
 # === Parameters
+#
+# [*ensure*]
+# Whether to create the jail that does not exist yet. Valid values
+# are `present`, `running` or absent. Similar to the service resource
 #
 # [*hostname*]
 #   Hostname of the jail
 #
-# [* vnet_enable *]
+# [*basejail*]
+# Determines if the jail should be based on another jail. If the value is
+# undef, the jail will be a 'full' jail.
+#
+# [*include_base*]
+# Include the base package. This only applies if the jail is not based
+# on a basejail.
+#
+# [*include_doc*]
+# Include the doc package. This only applies if the jail is not based
+# on a basejail.
+#
+# [*include_games*]
+# Include the games package. This only applies if the jail is not based
+# on a basejail.
+#
+# [*include_kernel*]
+# Include the kernel package. This only applies if the jail is not based
+# on a basejail.
+#
+# [*include_lib32*]
+# Include the lib32 package. This only applies if the jail is not based
+# on a basejail.
+#
+# [*include_ports*]
+# Include the ports package. This only applies if the jail is not based
+# on a basejail.
+#
+# [*include_src*]
+# Include the games package. This only applies if the jail is not based
+# on a basejail.
+#
+# [*vnet_enable*]
 # Create the	prison with its	own virtual network stack, with	its
 # own network interfaces, addresses,	routing	table, etc.
+#
+# [*vnet_mode*]
+# Set the vnet mode of the jail.
+#
+# [*ip4*]
+# Control the availability of IPv4 addresses. (see `man jail`) for details
+#
+# [*ip4_addr*]
+# A list of IPv4 addresses assigned to the jail. (see `man jail`) for details
+#
+# [*ip6*]
+# Same as ip4 just for IPv6
+#
+# [*ip6_addr*]
+# Same as ip4_addr just for IPv6
+#
+# [*mount_devfs*]
+# Controls the allow.mount.devfs permission. (see `man jail`) for details
+#
+# [*allow_set_hostname*]
+# Controls the allow.set_hostname permission. (see `man jail`) for details
+#
+# [*allow_sysvipc*]
+# Controls the allow.sysvipc permission. (see `man jail`) for details
+#
+# [*allow_raw_sockets*]
+# Controls the allow.raw_sockets permission. (see `man jail`) for details
+#
+# [*allow_chflags*]
+# Controls the allow.chflags permission. (see `man jail`) for details
+#
+# [*allow_mount*]
+# Controls the allow.mount permission. (see `man jail`) for details
+#
+# [*allow_mount_devfs*]
+# Controls the allow.mount.devfs permission. (see `man jail`) for details
+#
+# [*allow_mount_nullfs*]
+# Controls the allow.mount.nullfs permission. (see `man jail`) for details
+#
+# [*allow_mount_procfs*]
+# Controls the allow.mount.procfs permission. (see `man jail`) for details
+#
+# [*allow_mount_tmpfs*]
+# Controls the allow.mount.tmpfs permission. (see `man jail`) for details
+#
+# [*allow_mount_zfs*]
+# Controls the allow.mount.zfs permission. (see `man jail`) for details
+#
+# [*allow_quotas*]
+# Controls the allow.quotas permission. (see `man jail`) for details
+#
+# [*allow_socket_af*]
+# Controls the allow.socket_af. (see `man jail`) for details
+#
+# [*install_puppet*]
+# Install the puppet package in the jail.
+
 define jail::jail(
   $ensure = running,
   $hostname = $name,
   $basejail = undef,
+  $include_base = true,
+  $include_doc = true,
+  $include_games = true,
+  $include_kernel = false,
+  $include_lib32 = false,
+  $include_ports = false,
+  $include_src = false
   $vnet_enable = false,
   $vnet_mode = 'new',
   $vnet_interfaces = undef,
