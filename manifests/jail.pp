@@ -220,7 +220,7 @@ define jail::jail(
 
     file {"/dev in ${name}":
       ensure  => $directory_ensure,
-      path    => "${jail_location}/mnt",
+      path    => "${jail_location}/dev",
       require => File[$jail_location]
     } -> Anchor["setup-${name}"]
 
