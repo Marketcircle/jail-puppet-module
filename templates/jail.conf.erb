@@ -5,12 +5,13 @@
 <%= @name %> {
   path = <%= @jail_location %>;
   mount.devfs = <%= @mount_devfs %>;
-  exec.start = "/bin/sh /etc/rc<%- if @install_puppet %>; env ASSUME_ALWAYS_YES=YES /usr/sbin/pkg install -qy puppet<%- end %>
-";
+  exec.start = "/bin/sh /etc/rc";
 
   exec.stop = "/bin/sh /etc/rc.shutdown";
+<%- if @basejail != nil -%>
   exec.prestart = "/sbin/mount_nullfs -o ro <%= scope.lookupvar('jail::basejail_location') %> <%= @jail_location %>/basejail";
   exec.poststop = "/sbin/umount <%= @jail_location %>/basejail";
+<%- end -%>
   host.hostname = <%= @hostname %>;
 
 
