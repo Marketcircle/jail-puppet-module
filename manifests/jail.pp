@@ -114,7 +114,7 @@ define jail::jail(
   $include_kernel = false,
   $include_lib32 = false,
   $include_ports = false,
-  $include_src = false
+  $include_src = false,
   $vnet_enable = false,
   $vnet_mode = 'new',
   $vnet_interfaces = undef,
