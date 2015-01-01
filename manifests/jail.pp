@@ -100,6 +100,13 @@ define jail::jail(
   # This cries for the foreach stuff in the future parser
   if $basejail != undef {
     $basejail_location = $jail::basejails_location
+
+    file {"/basejail in ${name}":
+      ensure  => directory,
+      path    => "${jail_location}/basejail",
+      require => File[$jail_location]
+    } -> Anchor["setup-${name}"]
+
     file {"/mnt in ${name}":
       ensure  => directory,
       path    => "${jail_location}/mnt",
