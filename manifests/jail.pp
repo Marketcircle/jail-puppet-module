@@ -361,7 +361,7 @@ define jail::jail(
       require => File["${jail_location}/usr"]
     } -> Anchor["setup-${name}"]
   } else {
-    if ($ensure != absent) {
+    unless $ensure == absent {
       $freebsd_version = "${::kernelversion}-RELEASE"
       $architecture = $::hardwareisa
       $download_path = "${jail::freebsd_download_path}/${architecture}-${freebsd_version}"
@@ -388,7 +388,7 @@ define jail::jail(
   }
 
 
-  if $install_puppet {
+  if $install_puppet and $ensure != absent {
     exec {"Install puppet in ${name}":
       command => "/usr/sbin/pkg -c ${jail_location} install puppet"
     } <- Anchor["setup-${name}"]
