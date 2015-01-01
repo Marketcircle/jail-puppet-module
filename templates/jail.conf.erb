@@ -6,15 +6,12 @@
   path = <%= @jail_location %>;
   mount.devfs = <%= @mount_devfs %>;
   exec.start = "/bin/sh /etc/rc";
-
   exec.stop = "/bin/sh /etc/rc.shutdown";
 <%- if @basejail != nil -%>
   exec.prestart = "/sbin/mount_nullfs -o ro <%= scope['jail::jails_location'] %>/<%= @basejail %> <%= @jail_location %>/basejail";
   exec.poststop = "/sbin/umount <%= @jail_location %>/basejail";
 <%- end -%>
   host.hostname = <%= @hostname %>;
-
-
 
 <%# Configure virtual networking %>
 <%- if @vnet_enable -%>
@@ -24,16 +21,14 @@
 <%# IPv4 configuration %>
   ip4 = <%= @ip4 %>;
 <%- if @ip4_addr -%>
-  ip4_addr = <%= @ip4_addr %>;
+  ip4.addr = <%= @ip4_addr %>;
 <%- end %>
 
 <%# IPv6 configuration %>
   ip6 = <%= @ip6 %>;
 <%- if @ip6_addr -%>
-  ip6_addr = <%= @ip6_addr %>;
+  ip6.addr = <%= @ip6_addr %>;
 <%- end %>
-
-
 
   allow.set_hostname = <%= @allow_set_hostname %>;
   allow.sysvipc = <%= @allow_sysvipc %>;
