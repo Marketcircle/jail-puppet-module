@@ -1,17 +1,32 @@
 {
-  "name": "marketcircle-jail",
-  "version": "0.1.0",
-  "author": "marketcircle",
+  "name": "tbartelmess-jail",
+  "version": "0.1.1",
+  "author": "Thomas Bartelmess",
   "summary": "Manage and create FreeBSD jails",
   "license": "Apache 2.0",
   "source": "",
   "project_page": null,
   "issues_url": null,
+  "source": "https://github.com/Marketcircle/jail-puppet-module",
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": "3.5"
+    }
+  ],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "FreeBSD",
+      "operatingsystemrelease": [
+        "10.0", "10.1"
+        ]
+    }
+  ],
   "dependencies": [
     {
       "name": "puppetlabs-stdlib",
       "version_range": ">= 4.0.0"
-    }
+    },
     {
       "name": "maestrodev-wget",
       "version_range": ">= 1.5.0"
