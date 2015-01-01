@@ -385,12 +385,7 @@ define jail::jail(
   }
 
 
-  if $install_puppet and $ensure != absent {
-    exec {"Install puppet in ${name}":
-      command => "/usr/sbin/pkg -c ${jail_location} install puppet"
-    } <- Anchor["setup-${name}"]
-  }
-
+  
   file {"/etc/rc.conf for ${name}":
     ensure  => $file_ensure,
     content => template('jail/rc.conf.erb')
@@ -405,4 +400,12 @@ define jail::jail(
     status     => "/usr/sbin/jls -j ${name}",
     require    => [File["jail.conf-${name}"]],
   } <- Anchor["setup-${name}"]
+
+  if $install_puppet and $ensure == running {
+    exec {"Install puppet in ${name}":
+      command => "/usr/sbin/pkg -j ${name} install puppet",
+      require => Service[$service_name]
+    } <- Anchor["setup-${name}"]
+  }
+
 }
