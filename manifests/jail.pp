@@ -364,10 +364,8 @@ define jail::jail(
     $freebsd_version = "${::kernelversion}-RELEASE"
     $architecture = $::hardwareisa
     $download_path = "${jail::freebsd_download_path}/${architecture}-${freebsd_version}"
-
-    jail::download {$freebsd_version:
-      architecture => $architecture
-    } -> Anchor["setup-${name}"]
+    ensure_resource('jail::download', $freebsd_version, {'architecture' => $architecture})
+    Jail::Download[$freebsd_version] -> Anchor["setup-${name}"]
 
     exec {"Extract base.txz in ${name}":
       path    => '/usr/bin',
