@@ -206,9 +206,8 @@ define jail::jail(
     $basejail_location = "${jail::jails_location}/${basejail}"
 
     file {"/basejail in ${name}":
-      ensure  => $link_ensure,
+      ensure  => $directory_ensure,
       path    => "${jail_location}/basejail",
-      target  => $basejail_location,
       require => File[$jail_location]
     } -> Anchor["setup-${name}"]
 

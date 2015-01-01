@@ -9,7 +9,7 @@
 
   exec.stop = "/bin/sh /etc/rc.shutdown";
 <%- if @basejail != nil -%>
-  exec.prestart = "/sbin/mount_nullfs -o ro <%= scope.lookupvar('jail::basejail_location') %> <%= @jail_location %>/basejail";
+  exec.prestart = "/sbin/mount_nullfs -o ro <%= @basejail_location %> <%= @jail_location %>/basejail";
   exec.poststop = "/sbin/umount <%= @jail_location %>/basejail";
 <%- end -%>
   host.hostname = <%= @hostname %>;
