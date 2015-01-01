@@ -404,7 +404,7 @@ define jail::jail(
     stop       => "/usr/sbin/jail -f ${manage_file_path} -r ${name}",
     restart    => "/usr/sbin/jail -f ${manage_file_path} -rc ${name}",
     status     => "/usr/sbin/jls -j ${name}",
-    require    => [File["jail.conf-${name}"] Anchor["setup-${name}"]]
+    require    => [File["jail.conf-${name}"], Anchor["setup-${name}"]]
   }
 
   if $install_puppet and $ensure == running {
