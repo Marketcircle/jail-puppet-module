@@ -202,8 +202,8 @@ define jail::jail(
 
   # Create folders
   # This cries for the foreach stuff in the future parser
+  $basejail_location = "${jail::jails_location}/${basejail}"
   if $basejail != undef {
-    $basejail_location = "${jail::jails_location}/${basejail}"
 
     file {"/basejail in ${name}":
       ensure  => $directory_ensure,
