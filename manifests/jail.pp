@@ -258,7 +258,7 @@ define jail::jail(
       path    => '/usr/bin',
       command => "tar --unlink -xpJf ${download_path}/base.txz",
       cwd     => $jail_location,
-      creates => "${jail_location}/README",
+      creates => "${jail_location}/var",
       returns => [0,1],
       require => Jail::Download[$freebsd_version]
     } -> Anchor["setup-${name}"]
@@ -272,7 +272,7 @@ define jail::jail(
     } -> Anchor["setup-${name}"]
   }
 
-  if !install_puppet {
+  if install_puppet {
     exec {"Install puppet in ${name}":
       command => "/usr/sbin/pkg -c ${jail_location} install puppet"
     } <- Anchor["setup-${name}"]
