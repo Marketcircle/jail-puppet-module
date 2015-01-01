@@ -256,15 +256,16 @@ define jail::jail(
 
     exec {"Extract base.txz in ${name}":
       path    => '/usr/bin',
-      command => "tar --unlink -xvpJf ${download_path}/base.txz",
+      command => "tar --unlink -xpJf ${download_path}/base.txz",
       cwd     => $jail_location,
       creates => "${jail_location}/README",
+      returns => [0,1],
       require => Jail::Download[$freebsd_version]
     } -> Anchor["setup-${name}"]
 
     exec {"Extract doc.txz in ${name}":
       path    => '/usr/bin',
-      command => "tar --unlink -xvpJf ${download_path}/doc.txz",
+      command => "tar --unlink -xpJf ${download_path}/doc.txz",
       cwd     => $jail_location,
       creates => "${jail_location}/usr/share/doc/papers",
       require => Jail::Download[$freebsd_version]
