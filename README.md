@@ -37,11 +37,9 @@ etc.), mention it here.
 
 ### Beginning with jail
 
-The very basic steps needed for a user to get the module up and running.
-
-If your most recent release breaks compatibility or requires particular steps
-for upgrading, you may wish to include an additional section here: Upgrading
-(For an example, see http://forge.puppetlabs.com/puppetlabs/firewall).
+This module creates and manages FreeBSD jails. It is possible to create simple jails and use them as seperate systems.
+The module also allows to generate ezjail style basejails. Basejails are like templates for other jails, that allow
+to not duplicate the system data.
 
 ## Usage
 
@@ -52,46 +50,36 @@ include jail
 ```
 
 
+
 ### Create a jail
 
 #### Create basic jail
 
+A basic jail will download FreeBSD from the FreeBSD FTP servers.
+
 ```
 jail::jail {'myjail':
 
 }
 ```
-
-
-#### Create a jail on ZFS
+#### Create a base jail and 2 jails
 
 ```
-jail::jail {'myjail':
-  use_zfs  => true,
-  zfs_root => 'tank/jails'
+jail::jail {'mybase':
 }
+jail::jail {'jail1:
+  hostname => "jail1.example.com"
+  basejail => "mybase"
+}
+jail::jail {'jail2:
+  hostname => "jail2.example.com"
+  basejail => "mybase"
+}
+
 ```
-
-
-## Reference
-
-Here, list the classes, types, providers, facts, etc contained in your module.
-This section should include all of the under-the-hood workings of your module so
-people know what the module is touching on their system but don't need to mess
-with things. (We are working on automating this section!)
 
 ## Limitations
 
-This is where you list OS compatibility, version compatibility, etc.
-
-## Development
-
-Since your module is awesome, other users will want to play with it. Let them
-know what the ground rules for contributing are.
-
-## Release Notes/Contributors/Etc **Optional**
-
-If you aren't using changelog, put your release notes here (though you should
-consider using changelog). You may also add any additional sections you feel are
-necessary or important to include here. Please use the `## ` header.
+At this point only FreeBSD 10 is supported. Older versions of FreeBSD might work, however the installation of puppet
+within the jail uses the pkg(8) utility.
 
