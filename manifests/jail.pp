@@ -361,28 +361,30 @@ define jail::jail(
       require => File["${jail_location}/usr"]
     } -> Anchor["setup-${name}"]
   } else {
-    $freebsd_version = "${::kernelversion}-RELEASE"
-    $architecture = $::hardwareisa
-    $download_path = "${jail::freebsd_download_path}/${architecture}-${freebsd_version}"
-    ensure_resource('jail::download', $freebsd_version, {'architecture' => $architecture})
-    Jail::Download[$freebsd_version] -> Anchor["setup-${name}"]
+    if ($ensure != absent) {
+      $freebsd_version = "${::kernelversion}-RELEASE"
+      $architecture = $::hardwareisa
+      $download_path = "${jail::freebsd_download_path}/${architecture}-${freebsd_version}"
+      ensure_resource('jail::download', $freebsd_version, {'architecture' => $architecture})
+      Jail::Download[$freebsd_version] -> Anchor["setup-${name}"]
 
-    exec {"Extract base.txz in ${name}":
-      path    => '/usr/bin',
-      command => "tar --unlink -xpJf ${download_path}/base.txz",
-      cwd     => $jail_location,
-      creates => "${jail_location}/var",
-      returns => [0,1],
-      require => Jail::Download[$freebsd_version]
-    } -> Anchor["setup-${name}"]
+      exec {"Extract base.txz in ${name}":
+        path    => '/usr/bin',
+        command => "tar --unlink -xpJf ${download_path}/base.txz",
+        cwd     => $jail_location,
+        creates => "${jail_location}/var",
+        returns => [0,1],
+        require => Jail::Download[$freebsd_version]
+      } -> Anchor["setup-${name}"]
 
-    exec {"Extract doc.txz in ${name}":
-      path    => '/usr/bin',
-      command => "tar --unlink -xpJf ${download_path}/doc.txz",
-      cwd     => $jail_location,
-      creates => "${jail_location}/usr/share/doc/papers",
-      require => Jail::Download[$freebsd_version]
-    } -> Anchor["setup-${name}"]
+      exec {"Extract doc.txz in ${name}":
+        path    => '/usr/bin',
+        command => "tar --unlink -xpJf ${download_path}/doc.txz",
+        cwd     => $jail_location,
+        creates => "${jail_location}/usr/share/doc/papers",
+        require => Jail::Download[$freebsd_version]
+      } -> Anchor["setup-${name}"]
+    }
   }
 
 
