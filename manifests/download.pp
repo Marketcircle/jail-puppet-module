@@ -24,7 +24,7 @@ define jail::download(
   if $base {
     wget::fetch {"download for base.txz ${freebsd_version} (${architecture})":
       source      => "${version_url}/base.txz",
-      destination => "${jail::freebsd_download_path}/base.txz",
+      destination => "${download_path}/base.txz",
       require     => File[$download_path]
     }
   }
@@ -32,7 +32,7 @@ define jail::download(
   if $doc {
     wget::fetch {"download for doc.txz ${freebsd_version} (${architecture})":
       source      => "${version_url}/doc.txz",
-      destination => "${jail::freebsd_download_path}/doc.txz",
+      destination => "${download_path}/doc.txz",
       require     => File[$download_path]
     }
   }
@@ -40,7 +40,7 @@ define jail::download(
   if $games {
     wget::fetch {"download for games.txz ${freebsd_version} (${architecture})":
       source      => "${version_url}/games.txz",
-      destination => "${jail::freebsd_download_path}/games.txz",
+      destination => "${download_path}/games.txz",
       require     => File[$download_path]
     }
   }
@@ -48,7 +48,7 @@ define jail::download(
   if $kernel {
     wget::fetch {"download for kernel.txz ${freebsd_version} (${architecture})":
       source      => "${version_url}/kernel.txz",
-      destination => "${jail::freebsd_download_path}/kernel.txz",
+      destination => "${download_path}/kernel.txz",
       require     => File[$download_path]
     }
   }
@@ -56,7 +56,7 @@ define jail::download(
   if $lib32 {
     wget::fetch {"download for lib32.txz ${freebsd_version} (${architecture})":
       source      => "${version_url}/lib32.txz",
-      destination => "${jail::freebsd_download_path}/lib32.txz",
+      destination => "${download_path}/lib32.txz",
       require     => File[$download_path]
     }
   }
@@ -64,7 +64,7 @@ define jail::download(
   if $ports {
     wget::fetch {"download for ports.txz ${freebsd_version} (${architecture})":
       source      => "${version_url}/ports.txz",
-      destination => "${jail::freebsd_download_path}/ports.txz",
+      destination => "${download_path}/ports.txz",
       require     => File[$download_path]
     }
   }
@@ -72,7 +72,7 @@ define jail::download(
   if $src {
     wget::fetch {"download for src.txz ${freebsd_version} (${architecture})":
       source      => "${version_url}/src.txz",
-      destination => "${jail::freebsd_download_path}/src.txz",
+      destination => "${download_path}/src.txz",
       require     => File[$download_path]
     }
   }
