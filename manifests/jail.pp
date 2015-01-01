@@ -239,68 +239,68 @@ define jail::jail(
 
     exec {"/bin/cp -R ${basejail_location}/etc ${jail_location}":
       creates => "${jail_location}/etc",
-      require => File["${jail_location}"]
+      require => File[$jail_location]
     } -> Anchor["setup-${name}"]
 
     exec {"/bin/cp -R ${basejail_location}/root ${jail_location}":
       creates => "${jail_location}/root",
-      require => File["${jail_location}"]
+      require => File[$jail_location]
     } -> Anchor["setup-${name}"]
 
     exec {"/bin/cp -R ${basejail_location}/var ${jail_location}":
       creates => "${jail_location}/var",
-      require => File["${jail_location}"]
+      require => File[$jail_location]
     } -> Anchor["setup-${name}"]
 
     exec {"/bin/cp -R ${basejail_location}/usr/games ${jail_location}":
       creates => "${jail_location}/usr/games",
-      require => File["${jail_location}"]
+      require => File[$jail_location]
     } -> Anchor["setup-${name}"]
 
     exec {"/bin/cp -R ${basejail_location}/usr/local ${jail_location}":
       creates => "${jail_location}/usr/local",
-      require => File["${jail_location}"]
+      require => File[$jail_location]
     }  -> Anchor["setup-${name}"]
 
     exec {"/bin/cp -R ${basejail_location}/usr/obj ${jail_location}":
       creates => "${jail_location}/usr/obj",
-      require => File["${jail_location}"]
+      require => File[$jail_location]
     } -> Anchor["setup-${name}"]
 
     file {"${jail_location}/bin":
       ensure  => $link_ensure,
       target  => '/basejail/bin',
-      require => File["${jail_location}"]
+      require => File[$jail_location]
     } -> Anchor["setup-${name}"]
 
     file {"${jail_location}/lib":
       ensure  => $link_ensure,
       target  => '/basejail/lib',
-      require => File["${jail_location}"]
+      require => File[$jail_location]
     } -> Anchor["setup-${name}"]
 
     file {"${jail_location}/libexec":
       ensure  => $link_ensure,
       target  => '/basejail/libexec',
-      require => File["${jail_location}"]
+      require => File[$jail_location]
     } -> Anchor["setup-${name}"]
 
     file {"${jail_location}/sbin":
       ensure  => $link_ensure,
       target  => '/basejail/sbin',
-      require => File["${jail_location}"]
+      require => File[$jail_location]
     } -> Anchor["setup-${name}"]
 
     file {"${jail_location}/sys":
       ensure  => $link_ensure,
       target  => '/basejail/sys',
-      require => File["${jail_location}"]
+      require => File[$jail_location]
     } -> Anchor["setup-${name}"]
 
 
     file {"${jail_location}/usr/bin":
-      ensure => $link_ensure,
-      target => '/basejail/usr/bin',
+      ensure  => $link_ensure,
+      target  => '/basejail/usr/bin',
       require => File["${jail_location}/usr"]
     } -> Anchor["setup-${name}"]
 
@@ -391,11 +391,11 @@ define jail::jail(
   }
 
 
-  
   file {"/etc/rc.conf for ${name}":
     ensure  => $file_ensure,
-    content => template('jail/rc.conf.erb')
-  } <- Anchor["setup-${name}"]
+    content => template('jail/rc.conf.erb'),
+    require => Anchor["setup-${name}"]
+  }
 
   service { $service_name:
     ensure     => $service_ensure,
@@ -404,14 +404,14 @@ define jail::jail(
     stop       => "/usr/sbin/jail -f ${manage_file_path} -r ${name}",
     restart    => "/usr/sbin/jail -f ${manage_file_path} -rc ${name}",
     status     => "/usr/sbin/jls -j ${name}",
-    require    => [File["jail.conf-${name}"]],
-  } <- Anchor["setup-${name}"]
+    require    => [File["jail.conf-${name}"] Anchor["setup-${name}"]]
+  }
 
   if $install_puppet and $ensure == running {
     exec {"Install puppet in ${name}":
       command => "/usr/sbin/pkg -j ${name} install puppet",
-      require => Service[$service_name]
-    } <- Anchor["setup-${name}"]
+      require => [Service[$service_name], Anchor["setup-${name}"]]
+    }
   }
 
 }
