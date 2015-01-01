@@ -186,27 +186,18 @@ define jail::jail(
     content => template('jail/jail.conf.erb'),
     notify  => [Service[$service_name]]
   }
+  anchor {"setup-${name}":}
 
-  service { $service_name:
-    ensure     => $service_ensure,
-    hasrestart => true,
-    start      => "/usr/sbin/jail -f ${manage_file_path} -c ${name}",
-    stop       => "/usr/sbin/jail -f ${manage_file_path} -r ${name}",
-    restart    => "/usr/sbin/jail -f ${manage_file_path} -rc ${name}",
-    status     => "/usr/sbin/jls -j ${name}",
-    require    => [File["jail.conf-${name}"]],
-  }
   if ensure == absent {
     exec {"/bin/chflags -R noschg ${jail_location}":
 
-    } -> File[$jail_location']
+    } -> File[$jail_location]
   }
   file {$jail_location:
     ensure => $directory_ensure,
     path   => $jail_location,
   }
 
-  anchor {"setup-${name}":}
 
   # Create folders
   # This cries for the foreach stuff in the future parser
@@ -401,5 +392,15 @@ define jail::jail(
   file {"/etc/rc.conf for ${name}":
     ensure  => $file_ensure,
     content => template('jail/rc.conf.erb')
+  } <- Anchor["setup-${name}"]
+
+  service { $service_name:
+    ensure     => $service_ensure,
+    hasrestart => true,
+    start      => "/usr/sbin/jail -f ${manage_file_path} -c ${name}",
+    stop       => "/usr/sbin/jail -f ${manage_file_path} -r ${name}",
+    restart    => "/usr/sbin/jail -f ${manage_file_path} -rc ${name}",
+    status     => "/usr/sbin/jls -j ${name}",
+    require    => [File["jail.conf-${name}"]],
   } <- Anchor["setup-${name}"]
 }
