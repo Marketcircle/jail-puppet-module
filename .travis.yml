@@ -1,7 +1,7 @@
 ---
 sudo: false
 language: true
-script: "bundle exex rake clean && bundle exec rake validate && bundle exec rake lint && bundle exec rake spec SPEC_OPTS='--format documentation'"
+script: "bundle exec rake clean && bundle exec rake validate && bundle exec rake lint && bundle exec rake spec SPEC_OPTS='--format documentation'"
 matrix:
   fast_finish: false
   include:
