@@ -218,6 +218,13 @@ define jail::jail(
       require => File[$jail_location]
     } -> Anchor["setup-${name}"]
 
+    file {"/dev in ${name}":
+      ensure  => $directory_ensure,
+      path    => "${jail_location}/mnt",
+      require => File[$jail_location]
+    } -> Anchor["setup-${name}"]
+
+
     file {"/usr in ${name}":
       ensure  => $directory_ensure,
       path    => "${jail_location}/usr",
