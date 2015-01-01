@@ -230,32 +230,32 @@ define jail::jail(
     } -> Anchor["setup-${name}"]
 
 
-    exec {"/bin/cp -R ${basejail_location} ${jail_location}/etc":
+    exec {"/bin/cp -R ${basejail_location}/etc ${jail_location}":
       creates => "${jail_location}/etc",
       require => File["${jail_location}"]
     } -> Anchor["setup-${name}"]
 
-    exec {"/bin/cp -R ${basejail_location} ${jail_location}/root":
+    exec {"/bin/cp -R ${basejail_location}/root ${jail_location}":
       creates => "${jail_location}/root",
       require => File["${jail_location}"]
     } -> Anchor["setup-${name}"]
 
-    exec {"/bin/cp -R ${basejail_location} ${jail_location}/var":
+    exec {"/bin/cp -R ${basejail_location}/var ${jail_location}":
       creates => "${jail_location}/var",
       require => File["${jail_location}"]
     } -> Anchor["setup-${name}"]
 
-    exec {"/bin/cp -R ${basejail_location} ${jail_location}/usr/games":
+    exec {"/bin/cp -R ${basejail_location}/usr/games ${jail_location}":
       creates => "${jail_location}/usr/games",
       require => File["${jail_location}"]
     } -> Anchor["setup-${name}"]
 
-    exec {"/bin/cp -R ${basejail_location} ${jail_location}/usr/local":
+    exec {"/bin/cp -R ${basejail_location}/usr/local ${jail_location}":
       creates => "${jail_location}/usr/local",
       require => File["${jail_location}"]
     }  -> Anchor["setup-${name}"]
 
-    exec {"/bin/cp -R ${basejail_location} ${jail_location}/usr/obj":
+    exec {"/bin/cp -R ${basejail_location}/usr/obj ${jail_location}":
       creates => "${jail_location}/usr/obj",
       require => File["${jail_location}"]
     } -> Anchor["setup-${name}"]
