@@ -196,7 +196,11 @@ define jail::jail(
     status     => "/usr/sbin/jls -j ${name}",
     require    => [File["jail.conf-${name}"]],
   }
+  if ensure == absent {
+    exec {"/bin/chflags -R noschg ${jail_location}":
 
+    } -> File[$jail_location']
+  }
   file {$jail_location:
     ensure => $directory_ensure,
     path   => $jail_location,
