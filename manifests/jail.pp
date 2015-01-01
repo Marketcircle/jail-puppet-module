@@ -194,8 +194,9 @@ define jail::jail(
     } -> File[$jail_location]
   }
   file {$jail_location:
-    ensure => $directory_ensure,
-    path   => $jail_location,
+    ensure  => $directory_ensure,
+    path    => $jail_location,
+    require => File[$jail::jails_location]
   }
 
 

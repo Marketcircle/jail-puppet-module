@@ -2,7 +2,6 @@
 class jail (
   $config_dir = $jail::params::config_dir,
   $jails_location = $jail::params::jails_location,
-  $basejails_location = $jail::params::basejails_location,
   $freebsd_arch = $jail::params::freebsd_arch,
   $freebsd_version = $jail::params::freebsd_version,
   $freebsd_download_url = $jail::params::freebsd_download_url,
@@ -19,6 +18,10 @@ class jail (
   file { 'jail.d':
     ensure => directory,
     path   => $config_dir,
+  }
+
+  file { $jails_location:
+    ensure => directory
   }
 
   file { $freebsd_download_path:
