@@ -16,10 +16,7 @@ class jail::params {
   $freebsd_components    = ['base','doc','games','lib32','ports'] # Kernel is not required.
   $freebsd_download_path = '/usr/local/freebsd-dist'
   
-  $jails_baselocation = '/usr/local/jails'
-  $jails_location    = "${jails_baselocation}/jails"
-  $basejails_location = "${jails_location}/basejails/"
-
+  $jails_location = '/usr/local/jails'
   $puppet_download_url='https://downloads.puppetlabs.com/puppet/puppet-3.7.1.tar.gz'
   $facter_download_url='http://downloads.puppetlabs.com/facter/facter-2.2.0.tar.gz'
   $hiera_download_url='https://downloads.puppetlabs.com/hiera/hiera-1.3.4.tar.gz'
