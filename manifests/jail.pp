@@ -186,7 +186,8 @@ define jail::jail(
     content => template('jail/jail.conf.erb'),
     notify  => [Service[$service_name]]
   }
-  anchor {"setup-${name}":}
+
+  Class['jail'] -> anchor {"setup-${name}":}
 
   if ensure == absent {
     exec {"/bin/chflags -R noschg ${jail_location}":
@@ -196,7 +197,6 @@ define jail::jail(
   file {$jail_location:
     ensure  => $directory_ensure,
     path    => $jail_location,
-    require => File[$jail::jails_location]
   }
 
 

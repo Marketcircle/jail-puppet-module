@@ -1,6 +1,6 @@
 {
   "name": "tbartelmess-jail",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "author": "Thomas Bartelmess",
   "summary": "Manage and create FreeBSD jails",
   "license": "Apache 2.0",
