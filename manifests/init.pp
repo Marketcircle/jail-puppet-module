@@ -20,10 +20,6 @@ class jail (
     path   => $config_dir,
   }
 
-  file { $jails_location:
-    ensure => directory
-  }
-
   file { $freebsd_download_path:
     ensure => directory,
   }
