@@ -187,7 +187,6 @@ define jail::jail(
     notify  => [Service[$service_name]]
   }
 
-  anchor {"setup-${name}":}
 
   if ensure == absent {
     exec {"/bin/chflags -R noschg ${jail_location}":
@@ -209,168 +208,138 @@ define jail::jail(
       ensure  => $directory_ensure,
       path    => "${jail_location}/basejail",
       require => File[$jail_location]
-    } -> Anchor["setup-${name}"]
-
+    } ->
     file {"/mnt in ${name}":
       ensure  => $directory_ensure,
       path    => "${jail_location}/mnt",
       require => File[$jail_location]
-    } -> Anchor["setup-${name}"]
-
+    } ->
     file {"/dev in ${name}":
       ensure  => $directory_ensure,
       path    => "${jail_location}/dev",
       require => File[$jail_location]
-    } -> Anchor["setup-${name}"]
-
-
+    } ->
     file {"/usr in ${name}":
       ensure  => $directory_ensure,
       path    => "${jail_location}/usr",
       require => File[$jail_location]
-    } -> Anchor["setup-${name}"]
-
+    } ->
     file {"/tmp in ${name}":
       ensure  => $directory_ensure,
       path    => "${jail_location}/tmp",
       require => File[$jail_location]
-    } -> Anchor["setup-${name}"]
-
-
+    } ->
     exec {"/bin/cp -R ${basejail_location}/etc ${jail_location}":
       creates => "${jail_location}/etc",
       require => File[$jail_location]
-    } -> Anchor["setup-${name}"]
-
+    } ->
     exec {"/bin/cp -R ${basejail_location}/root ${jail_location}":
       creates => "${jail_location}/root",
       require => File[$jail_location]
-    } -> Anchor["setup-${name}"]
-
+    } ->
     exec {"/bin/cp -R ${basejail_location}/var ${jail_location}":
       creates => "${jail_location}/var",
       require => File[$jail_location]
-    } -> Anchor["setup-${name}"]
-
+    } ->
     exec {"/bin/cp -R ${basejail_location}/usr/games ${jail_location}":
       creates => "${jail_location}/usr/games",
       require => File[$jail_location]
-    } -> Anchor["setup-${name}"]
-
+    } ->
     exec {"/bin/cp -R ${basejail_location}/usr/local ${jail_location}":
       creates => "${jail_location}/usr/local",
       require => File[$jail_location]
-    }  -> Anchor["setup-${name}"]
-
+    }  ->
     exec {"/bin/cp -R ${basejail_location}/usr/obj ${jail_location}":
       creates => "${jail_location}/usr/obj",
       require => File[$jail_location]
-    } -> Anchor["setup-${name}"]
-
+    } ->
     file {"${jail_location}/bin":
       ensure  => $link_ensure,
       target  => '/basejail/bin',
       require => File[$jail_location]
-    } -> Anchor["setup-${name}"]
-
+    } ->
     file {"${jail_location}/lib":
       ensure  => $link_ensure,
       target  => '/basejail/lib',
       require => File[$jail_location]
-    } -> Anchor["setup-${name}"]
-
+    } ->
     file {"${jail_location}/libexec":
       ensure  => $link_ensure,
       target  => '/basejail/libexec',
       require => File[$jail_location]
-    } -> Anchor["setup-${name}"]
-
+    } ->
     file {"${jail_location}/sbin":
       ensure  => $link_ensure,
       target  => '/basejail/sbin',
       require => File[$jail_location]
-    } -> Anchor["setup-${name}"]
-
+    } ->
     file {"${jail_location}/sys":
       ensure  => $link_ensure,
       target  => '/basejail/sys',
       require => File[$jail_location]
-    } -> Anchor["setup-${name}"]
-
-
+    } ->
     file {"${jail_location}/usr/bin":
       ensure  => $link_ensure,
       target  => '/basejail/usr/bin',
       require => File["${jail_location}/usr"]
-    } -> Anchor["setup-${name}"]
-
+    } ->
     file {"${jail_location}/usr/games":
       ensure  => $link_ensure,
       target  => '/basejail/usr/games',
       require => File["${jail_location}/usr"]
-    } -> Anchor["setup-${name}"]
-
+    } ->
     file {"${jail_location}/usr/include":
       ensure  => $link_ensure,
       target  => '/basejail/usr/include',
       require => File["${jail_location}/usr"]
-    } -> Anchor["setup-${name}"]
-
+    } ->
     file {"${jail_location}/usr/lib":
       ensure  => $link_ensure,
       target  => '/basejail/usr/lib',
       require => File["${jail_location}/usr"]
-    } -> Anchor["setup-${name}"]
-
+    } ->
     file {"${jail_location}/usr/lib32":
       ensure  => $link_ensure,
       target  => '/basejail/usr/lib32',
       require => File["${jail_location}/usr"]
-    } -> Anchor["setup-${name}"]
-
+    } ->
     file {"${jail_location}/usr/libdata":
       ensure  => $link_ensure,
       target  => '/basejail/usr/libdata',
       require => File["${jail_location}/usr"]
-    } -> Anchor["setup-${name}"]
-
+    } ->
     file {"${jail_location}/usr/libexec":
       ensure  => $link_ensure,
       target  => '/basejail/usr/libexec',
       require => File["${jail_location}/usr"]
-    } -> Anchor["setup-${name}"]
-
+    } ->
     file {"${jail_location}/usr/ports":
       ensure  => $link_ensure,
       target  => '/basejail/usr/ports',
       require => File["${jail_location}/usr"]
-    } -> Anchor["setup-${name}"]
-
+    } ->
     file {"${jail_location}/usr/sbin":
       ensure  => $link_ensure,
       target  => '/basejail/usr/sbin',
       require => File["${jail_location}/usr"]
-    } -> Anchor["setup-${name}"]
-
+    } ->
     file {"${jail_location}/usr/share":
       ensure  => $link_ensure,
       target  => '/basejail/usr/share',
       require => File["${jail_location}/usr"]
-    } -> Anchor["setup-${name}"]
-
+    } ->
     file {"${jail_location}/usr/src":
       ensure  => $link_ensure,
       target  => '/basejail/usr/src',
       require => File["${jail_location}/usr"]
-    } -> Anchor["setup-${name}"]
+    } -> Service[$service_name]
   } else {
     unless $ensure == absent {
       $freebsd_version = "${::kernelversion}-RELEASE"
       $architecture = $::hardwareisa
       $download_path = "${jail::freebsd_download_path}/${architecture}-${freebsd_version}"
       ensure_resource('jail::download', $freebsd_version, {'architecture' => $architecture})
-      Jail::Download[$freebsd_version] -> Anchor["setup-${name}"]
-
+      Jail::Download[$freebsd_version] ->
       exec {"Extract base.txz in ${name}":
         path    => '/usr/bin',
         command => "tar --unlink -xpJf ${download_path}/base.txz",
@@ -378,15 +347,14 @@ define jail::jail(
         creates => "${jail_location}/var",
         returns => [0,1],
         require => Jail::Download[$freebsd_version]
-      } -> Anchor["setup-${name}"]
-
+      }->
       exec {"Extract doc.txz in ${name}":
         path    => '/usr/bin',
         command => "tar --unlink -xpJf ${download_path}/doc.txz",
         cwd     => $jail_location,
         creates => "${jail_location}/usr/share/doc/papers",
         require => Jail::Download[$freebsd_version]
-      } -> Anchor["setup-${name}"]
+      } -> Service[$service_name]
     }
   }
 
@@ -394,7 +362,6 @@ define jail::jail(
   file {"/etc/rc.conf for ${name}":
     ensure  => $file_ensure,
     content => template('jail/rc.conf.erb'),
-    require => Anchor["setup-${name}"]
   }
 
   service { $service_name:
@@ -404,13 +371,13 @@ define jail::jail(
     stop       => "/usr/sbin/jail -f ${manage_file_path} -r ${name}",
     restart    => "/usr/sbin/jail -f ${manage_file_path} -rc ${name}",
     status     => "/usr/sbin/jls -j ${name}",
-    require    => [File["jail.conf-${name}"], Anchor["setup-${name}"]]
+    require    => [File["jail.conf-${name}"]]
   }
 
   if $install_puppet and $ensure == running {
     exec {"Install puppet in ${name}":
       command => "/usr/sbin/pkg -j ${name} install puppet",
-      require => [Service[$service_name], Anchor["setup-${name}"]]
+      require => [Service[$service_name]]
     }
   }
 
