@@ -187,7 +187,7 @@ define jail::jail(
     notify  => [Service[$service_name]]
   }
 
-  Class['jail'] -> anchor {"setup-${name}":}
+  anchor {"setup-${name}":}
 
   if ensure == absent {
     exec {"/bin/chflags -R noschg ${jail_location}":
