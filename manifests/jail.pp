@@ -194,11 +194,6 @@ define jail::jail(
 
     } -> File[$jail_location]
   }
-  if !defined(File[$jails_location]) {
-    file { $jails_location:
-      ensure => directory
-    }
-  }
 
   file {$jail_location:
     ensure  => $directory_ensure,
