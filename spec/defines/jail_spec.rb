@@ -17,7 +17,7 @@ describe 'jail::jail', :type => :define do
 
 
   let :pre_condition do
-    "class {'jail':}"
+    "class {'jail':} class {'wget':}"
   end
 
 
