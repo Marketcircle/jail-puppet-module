@@ -5,6 +5,7 @@ describe 'jail::jail', :type => :define do
 
   let :facts do
     {
+      :kernel => 'FreeBSD',
       :osfamily => 'FreeBSD',
       :operatingsystem => 'FreeBSD',
       :operatingsystemrelease => '10.1-RELEASE',

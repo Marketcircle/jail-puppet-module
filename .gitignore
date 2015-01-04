@@ -1,5 +1,5 @@
 .bundle
 vendor
 Gemfile.lock
-spec/
+spec/fixtures
 pkg
