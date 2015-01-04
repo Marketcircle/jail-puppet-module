@@ -136,6 +136,7 @@ define jail::jail(
   $allow_mount_zfs = false,
   $allow_quotas = false,
   $allow_socket_af = false,
+  $max_children = 0,
   $install_puppet = true,
 ){
   $jail_location = "${jail::jails_location}/${name}"
