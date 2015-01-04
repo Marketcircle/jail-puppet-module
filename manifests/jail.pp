@@ -410,8 +410,9 @@ define jail::jail(
 
   if $install_puppet and $ensure == running {
     exec {"Install puppet in ${name}":
-      command => "/usr/sbin/pkg -j ${name} install puppet",
-      require => [Service[$service_name], Anchor["setup-${name}"]]
+      command     => "/usr/sbin/pkg -j ${name} install puppet",
+      environment => "ASSUME_ALWAYS_YES=YES",
+      require     => [Service[$service_name], Anchor["setup-${name}"]]
     }
   }
 
