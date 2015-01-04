@@ -21,13 +21,13 @@
 <%# IPv4 configuration %>
   ip4 = <%= @ip4 %>;
 <%- if @ip4_addr -%>
-  ip4.addr = <%= @ip4_addr %>;
+  ip4.addr = "<%= @ip4_addr %>";
 <%- end %>
 
 <%# IPv6 configuration %>
   ip6 = <%= @ip6 %>;
 <%- if @ip6_addr -%>
-  ip6.addr = <%= @ip6_addr %>;
+  ip6.addr = "<%= @ip6_addr %>";
 <%- end %>
 
   allow.set_hostname = <%= @allow_set_hostname %>;
