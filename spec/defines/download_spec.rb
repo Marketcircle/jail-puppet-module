@@ -1,9 +1,7 @@
 require 'spec_helper'
-asdf
 describe 'jail::download', :type => :define do
     let :facts do
     {
-      
       :kernel => 'FreeBSD',
       :osfamily => 'FreeBSD',
       :operatingsystem => 'FreeBSD',
