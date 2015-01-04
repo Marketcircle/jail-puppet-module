@@ -412,6 +412,7 @@ define jail::jail(
     exec {"Install puppet in ${name}":
       command     => "/usr/sbin/pkg -j ${name} install puppet",
       environment => "ASSUME_ALWAYS_YES=yes",
+      unless      => "/usr/sbin/pkg -j ${name} list | /usr/bin/grep puppet",
       require     => [Service[$service_name], Anchor["setup-${name}"]]
     }
   }
