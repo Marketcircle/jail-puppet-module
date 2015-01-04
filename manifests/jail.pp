@@ -342,11 +342,13 @@ define jail::jail(
       require => File["${jail_location}/usr"]
     } -> Anchor["setup-${name}"]
 
-    file {"${jail_location}/usr/ports":
-      ensure  => $link_ensure,
-      target  => '/basejail/usr/ports',
-      require => File["${jail_location}/usr"]
-    } -> Anchor["setup-${name}"]
+    if $include_ports {
+      file {"${jail_location}/usr/ports":
+        ensure  => $link_ensure,
+        target  => '/basejail/usr/ports',
+        require => File["${jail_location}/usr"]
+      } -> Anchor["setup-${name}"]
+    }
 
     file {"${jail_location}/usr/sbin":
       ensure  => $link_ensure,
